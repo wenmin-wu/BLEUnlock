@@ -3,7 +3,8 @@
 set -o pipefail
 
 USERNAME=apple@bounce-inc.jp
-TEAM=376NR42P9A
+#TEAM=376NR42P9A
+TEAM=6F43YBKR55
 APPNAME=BLEUnlock
 
 BASEDIR=$(cd $(dirname $0); pwd)
@@ -32,7 +33,7 @@ notarize() {
     while true; do
         sleep 15
         xcrun altool --notarization-info $uuid  --username $USERNAME \
-            --password "@keychain:AC_PASSWORD" --asc-provider 376NR42P9A 2>&1 |
+            --password "@keychain:AC_PASSWORD" --asc-provider $TEAM 2>&1 |
             tee $TMPDIR/altool.log
         status=$(grep Status: $TMPDIR/altool.log | sed 's/^.*Status: *//')
         if [ "$status" != "in progress" ]; then
